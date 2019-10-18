@@ -1,0 +1,41 @@
+
+command line
+
+
+//CLIENT
+//send
+copymyfile <node> <file>
+->
+    Create a magent(metainfo?) of the file
+    compress, encrypt with some client secret -> encrypted_pipe
+
+
+    POST /copymyfile <node> <encrypted_pipe> 
+        ->JWT
+
+//ping
+every 5mins?
+GET /pingserver <node>
+    ->JWT
+    if (reply)
+    ->  kick off receive
+
+
+//receive
+create torrent client
+decrypt, uncompress <encrypted_pipe>
+start transfer
+
+//SERVER
+
+POST /copymyfile <user> <node> <encrypted_pipe>
+->save encrypted_pipe and node for the user -> Save to mongodb
+
+GET /pingserver <user> <node>
+-> return <encrypted_pipe> for (user, node)
+
+
+
+
+
+
