@@ -34,8 +34,13 @@ func SetPipe(user string, node string, data string) {
 	defer client.Disconnect(context.TODO())
 
 	pipes := client.Database(herokuDB).Collection(pipeCollection)
+	p := pipe{
+		user: user,
+		node: node,
+		data: data,
+	}
 
-	_, err = pipes.InsertOne(context.TODO(), pipe{user: user, node: node, data: data})
+	_, err = pipes.InsertOne(context.TODO(), p)
 	if err != nil {
 		log.Printf("error: unable to insert to user DB %s", err)
 		return
