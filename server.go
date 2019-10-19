@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,8 +16,10 @@ func main() {
 		node := c.PostForm("node")
 		data := c.PostForm("data")
 
+		log.Println(user)
+
 		SetPipe(user, node, data)
-		c.JSON(http.StatusCreated, gin.H{"ok": "ok"})
+		c.JSON(http.StatusCreated, gin.H{})
 
 	})
 
