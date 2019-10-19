@@ -21,9 +21,9 @@ var mongodbURI = os.Getenv("MONGODB_URI") + "?retryWrites=false"
 var clientOptions = options.Client().ApplyURI(mongodbURI)
 
 type pipe struct {
-	user string
-	node string
-	data string
+	user string `json:"user" bson:"user"`
+	node string `json:"node" bson:"node"`
+	data string `json:"data" bson:"data"`
 }
 
 func SetPipe(user string, node string, data string) {
