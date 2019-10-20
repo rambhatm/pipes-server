@@ -20,10 +20,10 @@ const (
 var mongodbURI = os.Getenv("MONGODB_URI") + "?retryWrites=false"
 var clientOptions = options.Client().ApplyURI(mongodbURI)
 
-type pipe struct {
-	user string `json:"user" bson:"user"`
-	node string `json:"node" bson:"node"`
-	data string `json:"data" bson:"data"`
+type Pipe struct {
+	User string `json:"user" bson:"user"`
+	Node string `json:"node" bson:"node"`
+	Data string `json:"data" bson:"data"`
 }
 
 func SetPipe(user string, node string, data string) {
@@ -34,10 +34,10 @@ func SetPipe(user string, node string, data string) {
 	defer client.Disconnect(context.TODO())
 
 	pipes := client.Database(herokuDB).Collection(pipeCollection)
-	p := pipe{
-		user: user,
-		node: node,
-		data: data,
+	p := Pipe{
+		User: user,
+		Node: node,
+		Data: data,
 	}
 
 	_, err = pipes.InsertOne(context.TODO(), p)
@@ -49,7 +49,7 @@ func SetPipe(user string, node string, data string) {
 	return
 }
 
-func GetPipe(user string, node string) (myPipes []pipe) {
+func GetPipe(user string, node string) (myPipes []Pipe) {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal("cannot connect to mongodb")
@@ -64,7 +64,7 @@ func GetPipe(user string, node string) (myPipes []pipe) {
 		log.Printf("Error on Finding all the documents %s", err)
 	}
 	for cur.Next(context.TODO()) {
-		var p pipe
+		var p Pipe
 		err = cur.Decode(&p)
 		if err != nil {
 			log.Printf("Error on Decoding the document %s", err)
