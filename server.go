@@ -33,7 +33,7 @@ func main() {
 			c.JSON(http.StatusNotFound, gin.H{})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"pipes": myPipes})
+		c.JSON(http.StatusOK, gin.H{myPipes})
 	})
 
 	// By default it serves on :8080 unless a
